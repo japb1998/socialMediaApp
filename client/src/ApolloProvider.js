@@ -8,5 +8,5 @@ const client = new ApolloClient({
 });
 
 export default (
-    <ApolloProvider><App/></ApolloProvider>
+    <ApolloProvider client={client}><App/></ApolloProvider>
 )
