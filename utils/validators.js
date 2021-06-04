@@ -20,7 +20,7 @@ module.exports.validateRegisterInput = (
     errors.password = "password must not be empty";
   } else {
     if (password !== confirmPassword) {
-      errors.confirmPasword = "email must match";
+      errors.confirmPassword = "password must match";
     }
   }
 
