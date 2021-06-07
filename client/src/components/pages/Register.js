@@ -1,17 +1,22 @@
-import React,{useState} from 'react'
+import React,{useContext,useState} from 'react'
 import { Form,Button } from 'semantic-ui-react';
 import { gql, useMutation } from '@apollo/client';
 import { Route , withRouter} from 'react-router-dom';
+import {useForm} from '../../utils.js/hooks';
+import {AuthContext} from '../../context/auth';
  function Register({history}) {
-    const [errors,setErrors]= useState('')
-    const [values,setValues] = useState({
-        username:'',
-        email:'',
-        password:'',
-        confirmPassword:''
-    });
+    const [errors,setErrors]= useState('');
+const context = useContext(AuthContext);
+const {onChange,onSubmit, values} = useForm(registerUser,{
+    username:'',
+    email:'',
+    password:'',
+    confirmPassword:''
+});
     const [addUser, { loading}] = useMutation(REGISTER_USER,{
-        update(proxy,result){
+        update(proxy,{data:{register}}){
+            console.log(register)
+            // context.login(userData)
             history.push('/');
         }, 
         onError(err) {
@@ -23,16 +28,8 @@ import { Route , withRouter} from 'react-router-dom';
         variables: values
 
     });
-    function onChange ({target}) {
-const {value,name} = target;
-setValues({
-    ...values, [name]: value 
-})
-console.log(values);
-    }
-    function onSubmit(e){
-        e.preventDefault();
-addUser();
+    function registerUser(){
+        addUser();
     }
    
     return (

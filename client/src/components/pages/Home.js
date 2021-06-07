@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useQuery, gql } from '@apollo/client';
 import { Grid, Image } from 'semantic-ui-react';
 import PostCard from '../PostCard';
+import {AuthContext} from '../../context/auth';
+import PostForm from '../pages/PostForm';
  function Home() {
+     const {user} = useContext(AuthContext);
     const {
         loading,
         data
@@ -14,8 +17,15 @@ import PostCard from '../PostCard';
   <Grid.Row className='page-title'>
       <h1>Recent Post</h1>
   </Grid.Row>
+  {
+      user && (
+          <Grid.Column>
+              <PostForm/>
+          </Grid.Column>
+      )
+  }
     <Grid.Row>
-     {loading ? <h1>Loading post</h1> : (
+     {loading ? <h1>Loading post...</h1> :(
          data.getPosts && data.getPosts.map(post => (
 <Grid.Column key={post.id}>
     <PostCard post={post}></PostCard>

@@ -1,15 +1,33 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { Menu, Segment } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
-
-export default function MenuExampleSecondaryPointing() {
+import {AuthContext} from '../context/auth'
+export default function MenuBar() {
+    const {logout,user} = useContext(AuthContext)
     const pathName = window.location.pathname;
     const path = pathName === '/' ? 'home' : pathName.substr(1)
 const [activeItem,setActiveItem] = useState(path)
   const handleItemClick = (e, { name }) => setActiveItem(name)
 
-    return (
+    const menuBar = user ? (
       <div>
+        <Menu pointing secondary size='massive' color='teal'>
+          <Menu.Item
+            name={user.username}
+            active={true}
+            as={Link}
+            to='/'
+          />
+          <Menu.Menu position='right'>
+          <Menu.Item
+            name='logout'
+            onClick={logout}
+          />
+          </Menu.Menu>
+        </Menu>
+
+      </div>
+    ) : ( <div>
         <Menu pointing secondary size='massive' color='teal'>
           <Menu.Item
             name='home'
@@ -42,6 +60,7 @@ const [activeItem,setActiveItem] = useState(path)
           </Menu.Menu>
         </Menu>
 
-      </div>
-    )
+      </div>)
+
+      return menuBar
   }
