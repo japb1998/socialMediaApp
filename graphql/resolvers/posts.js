@@ -37,8 +37,8 @@ if(body.trim()===''){
      createdAt: new Date().toISOString()
  });
  const post = await newPost.save();
- context.pubsub.publish('NEW_POST',{
- newPost: post});
+//  context.pubsub.publish('NEW_POST',{
+//  newPost: post});
  return post ;
         },
         async deletePost(_,{postID},context){
