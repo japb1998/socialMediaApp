@@ -25,9 +25,9 @@ if(post){
     return post
 } else throw new UserInputError('Post not found');
         },
-        deleteComment: async (_,{postId,commentId},context) =>{
+        deleteComment: async (_,{postID,commentId},context) =>{
          const {username} = checkAuth(context);
-         const post = await Post.findById(postId);
+         const post = await Post.findById(postID);
          //if post exist
             if(post){
                 //comment index on the comments array on mongoDB
@@ -35,7 +35,7 @@ if(post){
 
                 if(post.comments[commentIndex].username === username){
                     //if the user is the owner of the comment
-                    post.comment.splice(commentIndex,1);
+                    post.comments.splice(commentIndex,1);
                     await post.save();
                     return post;
                 }else{

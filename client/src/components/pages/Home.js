@@ -5,6 +5,7 @@ import PostCard from '../PostCard';
 import {AuthContext} from '../../context/auth';
 import PostForm from '../pages/PostForm';
 import {FETCH_POSTS_QUERY} from '../../utils.js/graphql';
+
  function Home() {
      const {user} = useContext(AuthContext);
     const {
@@ -18,6 +19,7 @@ import {FETCH_POSTS_QUERY} from '../../utils.js/graphql';
   <Grid.Row className='page-title'>
       <h1>Recent Post</h1>
   </Grid.Row>
+  
   {
       user && (
           <Grid.Column>
@@ -26,6 +28,7 @@ import {FETCH_POSTS_QUERY} from '../../utils.js/graphql';
       )
   }
     <Grid.Row>
+
      {loading ? <h1>Loading post...</h1> :(<Transition.Group>{
          data.getPosts && data.getPosts.map(post => (
 <Grid.Column key={post.id}>

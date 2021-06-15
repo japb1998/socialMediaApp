@@ -43,13 +43,15 @@ if(body.trim()===''){
         },
         async deletePost(_,{postID},context){
             const user = checkAuth(context);
+            console.log(user);
             try{
                 const post = await Post.findById(postID);
+                console.log(post);
                 if(user.username === post.username){
                     await post.delete();
                     return `Post Deleted successfully${post}`
                 }else {
-throw AuthenticationError('Action not allowed');
+throw  AuthenticationError('Action not allowed');
                 }
             } catch(err){
                 throw new Error(err);
